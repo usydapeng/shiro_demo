@@ -1,0 +1,15 @@
+.classpath
+.project
+/.metadata
+/.settings
+/build
+/bin
+/dist
+/lib
+/WebContent/WEB-INF/lib
+/WebContent/resources
+/WebContent/WEB-INF/jsp
+.DS_Store
+/.idea
+*.iml
+.gradle
