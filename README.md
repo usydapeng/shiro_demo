@@ -1,2 +1,3 @@
-# shiro_demo
-shiro_demo
+#Shiro权限控制
+
+采用零配置文件进行搭建
