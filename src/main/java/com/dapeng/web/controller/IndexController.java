@@ -80,4 +80,9 @@ public class IndexController {
 
 		return "index";
 	}
+
+	@RequestMapping(value = "/404")
+	public String errorPage(){
+		return "404";
+	}
 }
