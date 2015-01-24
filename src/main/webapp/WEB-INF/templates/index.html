@@ -9,5 +9,11 @@
 <h1>优课急送</h1>
 <h1 th:text="${footer}"></h1>
 
+<form th:action="@{/demo}" method="post">
+	<input type="hidden" name="_method" value="delete"/>
+	<input type="text" name="name"/>
+	<input type="submit"/>
+</form>
+
 </body>
 </html>
