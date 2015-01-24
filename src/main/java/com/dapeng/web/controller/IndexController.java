@@ -43,12 +43,25 @@ public class IndexController {
 
 	@RequestMapping(value = "/test")
 	@ResponseBody
-	public Map<String, Object> test(){
+	public Map<String, Object> test() {
 		Map<String, Object> map = Maps.newHashMap();
 
 		map.put("success", true);
 		map.put("message", "this is a error message");
 
 		return map;
+	}
+
+	@RequestMapping(value = "/demo")
+	public String demo(){
+
+		int a = 10;
+		int b = 0;
+
+		a = a / b;
+
+		System.out.println(a);
+
+		return "index";
 	}
 }

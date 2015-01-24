@@ -19,13 +19,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.spi.PersistenceProvider;
-import java.sql.SQLException;
 import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories("com.dapeng.repository")
-@PropertySources({@PropertySource("classpath:dapeng-local.properties")})
+@PropertySources({@PropertySource("classpath:properties/dapeng-local.properties")})
 public class DataConfig {
 
 	private static final Logger logger = LoggerFactory.getLogger(DataConfig.class);

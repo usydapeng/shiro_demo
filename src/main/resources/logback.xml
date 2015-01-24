@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+	<property resource="logback.properties"/>
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="rollingFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log_home}/${portal_log_name}.log</file>	
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log_home}/${portal_log_name}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+	        	<maxFileSize>${max_file_size}</maxFileSize>
+	        </timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n</pattern>
+		</encoder>
+       
+	</appender>
+	
+	<appender name="rollingFilterFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter> 
+		<file>${log_home}/${portal_log_name}.log</file>	
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log_home}/${portal_log_name}.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="performance"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>/${log_home}/${performance_log_name}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log_home}/${performance_log_name}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+	        	<maxFileSize>${max_file_size}</maxFileSize>
+	        </timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="pageview"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${log_home}/${event_log_name}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log_home}/${event_log_name}.%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="leavemessage"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${log_home}/${leavemessage_log_name}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log_home}/${leavemessage_log_name}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+	        	<maxFileSize>${max_file_size}</maxFileSize>
+	        </timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="sms"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${log_home}/${sms_log_name}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log_home}/${sms_log_name}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+	        	<maxFileSize>${max_file_size}</maxFileSize>
+	        </timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="daoperformance"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter"> 
+			<evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+			<marker>DAO_PERFORMANCE</marker>
+			</evaluator>
+			<onMismatch>DENY</onMismatch>
+			<onMatch>NEUTRAL</onMatch>
+		</filter>
+	    <file>${log_home}/${daoperformance_log_name}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log_home}/${daoperformance_log_name}.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- <appender name="db" class="ch.qos.logback.classic.db.DBAppender">
+		日志异步到数据库
+		<connectionSource
+			class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+			连接池
+			<dataSource class="org.apache.commons.dbcp.BasicDataSource">
+				<driverClass>com.mysql.jdbc.Driver</driverClass>
+				<url>jdbc:mysql://127.0.0.1:3306/logback</url>
+				<user>root</user>
+				<password>root</password>
+			</dataSource>
+		</connectionSource>
+	</appender> -->
+
+	<if condition='property("duobei_env").equalsIgnoreCase("prod")'>
+	    <then>
+	      	<appender name="email" class="ch.qos.logback.classic.net.SMTPAppender">
+				<!-- <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+					<marker>NOTIFY_ADMIN</marker>
+				</evaluator> -->
+				
+				<filter class="ch.qos.logback.classic.filter.LevelFilter">
+					<level>ERROR</level>
+					<onMatch>ACCEPT</onMatch>
+					<onMismatch>DENY</onMismatch>
+				</filter> 
+				 
+				<smtpHost>smtp.gmail.com</smtpHost>
+				<smtpPort>587</smtpPort>
+				<STARTTLS>true</STARTTLS>
+				<username>deploy.duobei@gmail.com</username>
+				<password>duobeideploy</password>
+		
+				<to>guolin.liu@duobei.com</to>
+				<to>zhenrong.li@duobei.com</to>
+		
+				<from>deploy.duobei@gmail.com</from>
+				<subject>portal-warn: %logger{20} - %m</subject>
+				<layout class="ch.qos.logback.classic.PatternLayout"> 
+					<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n</pattern> 
+				</layout>
+			</appender>
+			<root level="info">
+				<appender-ref ref="email" />
+			</root>
+	    </then>
+	  </if>
+
+	<logger name="org.springframework" level="ERROR" />
+	<logger name="org.hibernate" level="ERROR" />
+	<logger name="org.apache" level="ERROR" />
+	
+	<!--log4jdbc -->
+	<logger name="jdbc.sqltiming" level="INFO" additivity="false">
+		<appender-ref ref="console" />
+	</logger>
+	
+	<logger name="com.duobei.web.interceptor.PerformanceInterceptor.performance" level="trace" additivity="false">
+		<appender-ref ref="performance"/>
+	</logger>
+	
+	<logger name="com.duobei.web.interceptor.ActionEventInterceptor.pageview" level="trace" additivity="false">
+		<appender-ref ref="pageview"/>
+	</logger>
+	
+	<logger name="com.duobei.web.controller.message.LeaveMessageToCEOController.leavemessage" level="trace" additivity="false">
+		<appender-ref ref="leavemessage"/>
+	</logger>
+	
+	<logger name="com.duobei.core.sms.SmsEngine.sms" level="trace" additivity="false">
+		<appender-ref ref="sms"/>
+	</logger>
+	
+	<!-- <logger name="com.duobei.core.aop.LogAop" level="trace" additivity="false">
+		<appender-ref ref="daoperformance"/>
+	</logger> -->
+	
+	<root level="info">
+		<appender-ref ref="console" />
+		<appender-ref ref="rollingFile" />
+	</root>
+	
+</configuration>

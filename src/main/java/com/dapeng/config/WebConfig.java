@@ -113,6 +113,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return contentNegotiatingViewResolver;
 	}
 
+	@Bean
 	public BasicMappingExceptionResolver exceptionResolver(){
 		BasicMappingExceptionResolver exceptionResolver = new BasicMappingExceptionResolver();
 
@@ -123,8 +124,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		exceptionResolver.setExceptionMappings(exceptionMappings);
 
 		Properties statusCodes = new Properties();
-		statusCodes.put("404", 500);
-		statusCodes.put("404", 404);
+		statusCodes.put("404", "404");
+		statusCodes.put("500", "404");
 		exceptionResolver.setStatusCodes(statusCodes);
 
 		exceptionResolver.setDefaultErrorView("404");

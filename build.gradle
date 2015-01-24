@@ -64,9 +64,12 @@ dependencies {
     compile('joda-time:joda-time:2.7')
 
     compile('log4j:log4j:1.2.17')
+    compile ('ch.qos.logback:logback-classic:1.1.2')
     compile('org.slf4j:slf4j-api:1.7.10')
     compile('org.slf4j:slf4j-log4j12:1.7.10')
     compile('org.slf4j:slf4j-simple:1.7.10')
+    compile('org.slf4j:jcl-over-slf4j:1.7.10')
+    compile('org.slf4j:jul-to-slf4j:1.7.10')
 
     compile('commons-io:commons-io:2.4')
     compile('commons-codec:commons-codec:1.10')
@@ -81,4 +84,17 @@ dependencies {
 
     testCompile('junit:junit:4.12')
     testCompile('org.springframework:spring-test:4.1.4.RELEASE')
+}
+
+
+//创建源码目录
+task createJavaProject << {
+    sourceSets*.java.srcDirs*.each { it.mkdirs() }
+    sourceSets*.resources.srcDirs*.each { it.mkdirs()}
+}
+
+//创建webapp目录
+task createWebProject(dependsOn: 'createJavaProject') << {
+    def webAppDir = file("$webAppDirName")
+    webAppDir.mkdirs()
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 		@ComponentScan.Filter(Controller.class),
 		@ComponentScan.Filter(ControllerAdvice.class)})
 @Import({DataConfig.class})
-@PropertySources({@PropertySource("classpath:dapeng-local.properties")})
+@PropertySources({@PropertySource("classpath:properties/dapeng-local.properties")})
 public class AppConfig {
 
 	@Bean
