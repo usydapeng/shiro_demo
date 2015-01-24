@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.spi.PersistenceProvider;
+import java.sql.SQLException;
 import java.util.Properties;
 
 @Configuration
@@ -32,7 +33,7 @@ public class DataConfig {
 	@Autowired
 	private Environment env;
 
-	@Bean
+	@Bean(initMethod = "init", destroyMethod = "close")
 	public DruidDataSource druidDataSource(){
 		DruidDataSource druidDataSource = new DruidDataSource();
 
@@ -41,15 +42,13 @@ public class DataConfig {
 		druidDataSource.setUsername(env.getProperty("jdbc.username"));
 		druidDataSource.setPassword(env.getProperty("jdbc.password"));
 
-//		try {
-//			druidDataSource.setFilters("config");
-//		} catch(SQLException e){
-//			logger.info(e.getMessage(), e);
-//		}
+		try {
+			druidDataSource.setFilters("config");
+		} catch(SQLException e){
+			logger.info(e.getMessage(), e);
+		}
 
-		Properties connectionProperties = new Properties();
-		connectionProperties.put("config.decrypt", true);
-//		druidDataSource.setConnectProperties(connectionProperties);
+		druidDataSource.setConnectionProperties("config.decrypt=true");
 
 		druidDataSource.setInitialSize(1);
 		druidDataSource.setMinIdle(10);
