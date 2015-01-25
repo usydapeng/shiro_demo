@@ -3,6 +3,9 @@ package com.dapeng.config;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import com.google.common.collect.Maps;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -14,6 +17,12 @@ import javax.servlet.ServletRegistration;
 import java.util.Map;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+	private static Logger logger = LoggerFactory.getLogger(WebAppInitializer.class);
+
+	private WebApplicationContext rootContext;
+
+	private WebApplicationContext dispatcherContext;
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
@@ -32,6 +41,8 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
+
+		super.onStartup(servletContext);
 
 		//字符编码过滤器
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
@@ -65,7 +76,19 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 		druidStatViewServletDynamic.setInitParameters(druidStatViewServletInitParameters);
 		druidStatViewServletDynamic.addMapping("/druid/*");
 
-		super.onStartup(servletContext);
 	}
 
+	@Override
+	protected WebApplicationContext createRootApplicationContext() {
+		logger.info("============= create rootContext =============");
+		this.rootContext = super.createRootApplicationContext();
+		return this.rootContext;
+	}
+
+	@Override
+	protected WebApplicationContext createServletApplicationContext() {
+		logger.info("============= create dispatcherContext =============");
+		this.dispatcherContext = super.createServletApplicationContext();
+		return this.dispatcherContext;
+	}
 }
