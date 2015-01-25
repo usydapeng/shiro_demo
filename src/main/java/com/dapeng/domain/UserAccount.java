@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "user_account")
+@Table(name = "user_account", uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
 public class UserAccount implements Serializable {
 
 	private static final long serialVersionUID = -2699025543791437963L;
@@ -13,7 +13,7 @@ public class UserAccount implements Serializable {
 	@GeneratedValue
 	private Long id;
 
-	private Long userId;
+	private Long slug;
 
 	private String username;
 
@@ -74,12 +74,12 @@ public class UserAccount implements Serializable {
 		this.confirmed = confirmed;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public Long getSlug() {
+		return slug;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setSlug(Long slug) {
+		this.slug = slug;
 	}
 
 	//没有持久化，没有在数据库中存在列

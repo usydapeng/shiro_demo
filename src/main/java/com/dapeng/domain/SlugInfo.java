@@ -1,13 +1,10 @@
 package com.dapeng.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "slug_info")
+@Table(name = "slug_info", uniqueConstraints = {@UniqueConstraint(columnNames = "slug")})
 public class SlugInfo implements Serializable {
 
 	private static final long serialVersionUID = 74586927583429629L;

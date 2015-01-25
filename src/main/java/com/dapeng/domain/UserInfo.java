@@ -16,7 +16,7 @@ public class UserInfo implements Serializable {
 	@GeneratedValue
 	private Long id;
 
-	private Long slug;
+	private Long userId;
 
 	private String nickname;
 
@@ -32,12 +32,12 @@ public class UserInfo implements Serializable {
 		this.id = id;
 	}
 
-	public Long getSlug() {
-		return slug;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setSlug(Long slug) {
-		this.slug = slug;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public String getNickname() {

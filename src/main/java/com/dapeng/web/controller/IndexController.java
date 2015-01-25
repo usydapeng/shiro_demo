@@ -2,6 +2,8 @@ package com.dapeng.web.controller;
 
 import com.dapeng.service.IndexService;
 import com.dapeng.service.SimpleProductInfo;
+import com.dapeng.service.UserService;
+import com.dapeng.service.exception.UserAccountException;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,9 @@ public class IndexController {
 
 	@Autowired
 	private IndexService indexService;
+
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = {"/", "/index", "/helloworld", "/home"})
 	public String index(){
@@ -50,6 +55,28 @@ public class IndexController {
 
 		map.put("success", true);
 		map.put("message", "this is a error message");
+
+		return map;
+	}
+
+	@RequestMapping(value = "/init")
+	public String init(){
+		userService.init();
+		return "index";
+	}
+
+	@RequestMapping("/user")
+	@ResponseBody
+	public Map<String, Object> getUserInfo(@RequestParam(value = "n", defaultValue = "admin") String username){
+		Map<String, Object> map = Maps.newHashMap();
+		try {
+			map.put("message", userService.getByUsername(username));
+			map.put("success", true);
+		} catch(UserAccountException e){
+			logger.info(e.getMessage(), e);
+			map.put("success", false);
+			map.put("message", e.getMessage());
+		}
 
 		return map;
 	}
