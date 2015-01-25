@@ -4,16 +4,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
-@Table(name = "product")
 @Entity
-public class Product {
+@Table(name = "slug_info")
+public class SlugInfo implements Serializable {
+
+	private static final long serialVersionUID = 74586927583429629L;
 
 	@Id
 	@GeneratedValue
 	private Long id;
 
-	private String name;
+	private Long slug;
 
 	public Long getId() {
 		return id;
@@ -23,11 +26,11 @@ public class Product {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public Long getSlug() {
+		return slug;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setSlug(Long slug) {
+		this.slug = slug;
 	}
 }

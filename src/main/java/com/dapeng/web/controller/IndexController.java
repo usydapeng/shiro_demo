@@ -6,9 +6,6 @@ import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class IndexController {
 
 	private static Logger logger = LoggerFactory.getLogger(IndexController.class);
@@ -28,7 +24,7 @@ public class IndexController {
 	@Autowired
 	private IndexService indexService;
 
-	@RequestMapping(value = {"/", "/index", "/helloworld"})
+	@RequestMapping(value = {"/", "/index", "/helloworld", "/home"})
 	public String index(){
 
 		return "index";

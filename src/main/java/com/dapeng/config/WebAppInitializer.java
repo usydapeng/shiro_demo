@@ -7,13 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.FilterRegistration;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
+import javax.servlet.*;
+import java.util.EnumSet;
 import java.util.Map;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -46,7 +45,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
 		//字符编码过滤器
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-		characterEncodingFilter.setEncoding("GBK");
+		characterEncodingFilter.setEncoding("UTF-8");
 		characterEncodingFilter.setForceEncoding(true);
 		servletContext.addFilter("characterEncodingFilter", characterEncodingFilter)
 					.addMappingForUrlPatterns(null, false, "/*");
@@ -76,6 +75,10 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 		druidStatViewServletDynamic.setInitParameters(druidStatViewServletInitParameters);
 		druidStatViewServletDynamic.addMapping("/druid/*");
 
+		//配置Shiro权限控制，
+		servletContext.addFilter("shiroFilter", new DelegatingFilterProxy("shiroFilterFactoryBean", rootContext))
+				.addMappingForUrlPatterns(EnumSet.of(DispatcherType.ASYNC, DispatcherType.ERROR,
+						DispatcherType.INCLUDE, DispatcherType.FORWARD, DispatcherType.REQUEST), false, "/*");
 	}
 
 	@Override
