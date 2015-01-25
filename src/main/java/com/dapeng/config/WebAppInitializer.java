@@ -3,9 +3,12 @@ package com.dapeng.config;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import com.google.common.collect.Maps;
+import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
@@ -13,25 +16,29 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 import java.util.Map;
 
-public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-
-	@Override
-	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[]{AppConfig.class, SecurityConfig.class};
-	}
-
-	@Override
-	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[]{WebConfig.class};
-	}
-
-	@Override
-	protected String[] getServletMappings() {
-		return new String[]{"/"};
-	}
+public class WebAppInitializer implements WebApplicationInitializer {
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
+
+		// create the 'root' Spring application context
+		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
+		rootContext.register(DataConfig.class);
+//		rootContext.register(DataConfig.class, SecurityConfig.class);
+
+		// manage the lifecycle of root application context
+		servletContext.addListener(new ContextLoaderListener(rootContext));
+
+
+		// dispatcher Servlet配置
+		AnnotationConfigWebApplicationContext dispatcherContext = new AnnotationConfigWebApplicationContext();
+		dispatcherContext.setServletContext(servletContext);
+		dispatcherContext.setParent(rootContext);
+		dispatcherContext.register(WebConfig.class);
+
+		ServletRegistration.Dynamic dispatcherServletDynamic = servletContext.addServlet("dispatcherServlet", new DispatcherServlet(dispatcherContext));
+		dispatcherServletDynamic.setLoadOnStartup(1);
+		dispatcherServletDynamic.addMapping("/");
 
 		//字符编码过滤器
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
@@ -43,6 +50,17 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 		//Http请求方式过滤器
 		servletContext.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter())
 					.addMappingForUrlPatterns(null, false, "/*");
+
+
+
+		//shiro拦截器配置
+//		DelegatingFilterProxy shiroFilter = new DelegatingFilterProxy("shiroFilterBean", dispatcherContext);
+//		shiroFilter.setTargetFilterLifecycle(true);
+//		FilterRegistration.Dynamic shiroFilterDynamic = servletContext.addFilter("shiroFilter", shiroFilter);
+//		shiroFilterDynamic.setAsyncSupported(true);
+//		shiroFilterDynamic.addMappingForUrlPatterns(EnumSet.of(DispatcherType.ASYNC,
+//						DispatcherType.ERROR, DispatcherType.INCLUDE,
+//						DispatcherType.FORWARD, DispatcherType.REQUEST), false, "/*");
 
 		//DruidWebStatFilter过滤器
 		WebStatFilter druidWebStatFilter = new WebStatFilter();
@@ -65,7 +83,6 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 		druidStatViewServletDynamic.setInitParameters(druidStatViewServletInitParameters);
 		druidStatViewServletDynamic.addMapping("/druid/*");
 
-		super.onStartup(servletContext);
 	}
 
 }
