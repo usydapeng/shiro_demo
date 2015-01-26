@@ -36,13 +36,13 @@ public class UserServiceImpl implements UserService {
 		if(userAccount == null){
 			throw new UserAccountException("this account doesn't exist");
 		}
-		UserInfo userInfo = userInfoRepository.findOne(userAccount.getId());
+		UserInfo userInfo = userInfoRepository.findOneByUserId(userAccount.getId());
 		UserPermission userPermission = userPermissionRepository.findOneByUserId(userAccount.getId());
 
 		SimpleUserInfo simpleUserInfo = new SimpleUserInfo();
 
 		simpleUserInfo.setSlug(userAccount.getSlug());
-		simpleUserInfo.setUserId(userInfo.getId());
+		simpleUserInfo.setUserId(userAccount.getId());
 		simpleUserInfo.setSchool(userInfo.getSchool());
 		simpleUserInfo.setNickname(userInfo.getNickname());
 		simpleUserInfo.setPassword(userAccount.getPassword());

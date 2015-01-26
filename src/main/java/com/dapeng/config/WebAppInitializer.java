@@ -5,23 +5,21 @@ import com.alibaba.druid.support.http.WebStatFilter;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.*;
-import java.util.EnumSet;
 import java.util.Map;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	private static Logger logger = LoggerFactory.getLogger(WebAppInitializer.class);
 
-	private WebApplicationContext rootContext;
-
-	private WebApplicationContext dispatcherContext;
+//	private WebApplicationContext rootContext;
+//
+//	private WebApplicationContext dispatcherContext;
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
@@ -75,23 +73,31 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 		druidStatViewServletDynamic.setInitParameters(druidStatViewServletInitParameters);
 		druidStatViewServletDynamic.addMapping("/druid/*");
 
-		//配置Shiro权限控制，
-		servletContext.addFilter("shiroFilter", new DelegatingFilterProxy("shiroFilterFactoryBean", rootContext))
-				.addMappingForUrlPatterns(EnumSet.of(DispatcherType.ASYNC, DispatcherType.ERROR,
-						DispatcherType.INCLUDE, DispatcherType.FORWARD, DispatcherType.REQUEST), false, "/*");
+//		//配置Shiro权限控制，
+//		servletContext.addFilter("shiroFilter", new DelegatingFilterProxy("shiroFilterFactoryBean", rootContext))
+//				.addMappingForUrlPatterns(EnumSet.of(DispatcherType.ASYNC, DispatcherType.ERROR,
+//						DispatcherType.INCLUDE, DispatcherType.FORWARD, DispatcherType.REQUEST), false, "/*");
 	}
 
 	@Override
-	protected WebApplicationContext createRootApplicationContext() {
-		logger.info("============= create rootContext =============");
-		this.rootContext = super.createRootApplicationContext();
-		return this.rootContext;
+	protected Filter[] getServletFilters() {
+		logger.info("配置Shiro权限控制");
+		DelegatingFilterProxy delegatingFilterProxy = new DelegatingFilterProxy("shiroFilter");
+		delegatingFilterProxy.setTargetFilterLifecycle(true);
+		return new Filter[]{delegatingFilterProxy};
 	}
 
-	@Override
-	protected WebApplicationContext createServletApplicationContext() {
-		logger.info("============= create dispatcherContext =============");
-		this.dispatcherContext = super.createServletApplicationContext();
-		return this.dispatcherContext;
-	}
+//	@Override
+//	protected WebApplicationContext createRootApplicationContext() {
+//		logger.info("============= create rootContext =============");
+//		this.rootContext = super.createRootApplicationContext();
+//		return this.rootContext;
+//	}
+//
+//	@Override
+//	protected WebApplicationContext createServletApplicationContext() {
+//		logger.info("============= create dispatcherContext =============");
+//		this.dispatcherContext = super.createServletApplicationContext();
+//		return this.dispatcherContext;
+//	}
 }

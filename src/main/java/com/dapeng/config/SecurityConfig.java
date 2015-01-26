@@ -57,16 +57,16 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public ShiroFilterFactoryBean shiroFilterFactoryBean(){
-		ShiroFilterFactoryBean shiroFilterBean = new ShiroFilterFactoryBean();
-		shiroFilterBean.setLoginUrl("/login");
-		shiroFilterBean.setSecurityManager(securityManager());
+	public ShiroFilterFactoryBean shiroFilter(){
+		ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
+		shiroFilter.setLoginUrl("/login");
+		shiroFilter.setSecurityManager(securityManager());
 
 		Map<String, String> filterChainDefinitionMap = Maps.newHashMap();
 		filterChainDefinitionMap.put("/product", "authc");
 		filterChainDefinitionMap.put("/admin", "authc, roles[USER_ADMIN]");
-		shiroFilterBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+		shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
-		return shiroFilterBean;
+		return shiroFilter;
 	}
 }
