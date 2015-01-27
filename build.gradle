@@ -51,6 +51,9 @@ dependencies {
     compile('org.apache.shiro:shiro-ehcache:1.2.3')
     compile('org.apache.shiro:shiro-spring:1.2.3')
 
+//    compile('org.owasp.encoder:encoder:1.1.1')
+//    compile('org.owasp.encoder:encoder-jsp:1.1.1')
+
     compile('org.hibernate:hibernate-core:4.3.8.Final')
     compile('org.hibernate:hibernate-validator:5.1.3.Final')
     compile('org.hibernate:hibernate-entitymanager:4.3.8.Final')
@@ -96,6 +99,7 @@ dependencies {
 
     testCompile('junit:junit:4.12')
     testCompile('org.springframework:spring-test:4.1.4.RELEASE')
+    testCompile('org.thymeleaf:thymeleaf-testing:2.1.3.RELEASE')
 }
 
 

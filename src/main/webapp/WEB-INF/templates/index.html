@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+		xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head lang="en">
 	<meta charset="UTF-8"/>
 	<title></title>
@@ -8,6 +9,12 @@
 <h1>thymeleaf</h1>
 <h1>优课急送</h1>
 <h1 th:text="${footer}"></h1>
+
+<h1 shiro:user="">User</h1>
+<h1 shiro:guest="">Guest</h1>
+<shiro:hasRole name="administrator">
+	<a href="admin.html">Administer the system</a>
+</shiro:hasRole>
 
 <form th:action="@{/demo}" method="post">
 	<input type="hidden" name="_method" value="delete"/>

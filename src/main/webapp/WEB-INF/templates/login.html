@@ -6,7 +6,8 @@
 </head>
 <body>
 <form th:action="@{/login}" method="post">
-	<input type="text" name="name" value="中华人民共和国"/>
+	<input type="text" name="username" th:value="${username}"/>
+	<input type="password" name="password"/>
 	<input type="submit"/>
 </form>
 </body>

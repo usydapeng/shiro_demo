@@ -1,5 +1,6 @@
 package com.dapeng.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.dapeng.web.handler.BasicMappingExceptionResolver;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -78,6 +79,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public SpringTemplateEngine templateEngine(){
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver());
+		templateEngine.addDialect("shiro", new ShiroDialect());
 		return templateEngine;
 	}
 

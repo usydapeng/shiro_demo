@@ -10,12 +10,15 @@ import org.apache.shiro.web.mgt.WebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 
 import java.util.Map;
 
-@Controller
+@Configuration
+@Order(10)
 public class SecurityConfig {
 
 	@Bean
