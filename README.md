@@ -6,4 +6,8 @@
 4. Shiro进行权限控制
 5. Druid进行数据库和URL监控
 6. 权限认证缓存
-7. cookie redis 共享
+7. 运行环境、开发环境、测试环境快速切换
+8. solr全文检索
+9. thymeleaf生成静态模板
+10. [Redis实现shiro集群](http://jetgeng.github.io/blog/html/2014/09/07/redis_shiro.html)
+11. 单点登陆
