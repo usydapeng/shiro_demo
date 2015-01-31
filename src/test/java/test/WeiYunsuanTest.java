@@ -1,5 +1,8 @@
 package test;
 
+import org.junit.Test;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+
 public class WeiYunsuanTest {
 
 	public static boolean isInGroup(Integer userRole, Integer group){
@@ -17,5 +20,11 @@ public class WeiYunsuanTest {
 		System.out.println(1 & 16);//xxx
 		System.out.println(2 & 15);
 		System.out.println(4 & 15);
+	}
+
+	@Test
+	public void demo(){
+		Md5PasswordEncoder md5PasswordEncoder = new Md5PasswordEncoder();
+		System.out.println(md5PasswordEncoder.encodePassword("admin123", "admin"));
 	}
 }

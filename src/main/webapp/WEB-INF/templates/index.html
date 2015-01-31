@@ -16,6 +16,19 @@
 	<a href="admin.html">Administer the system</a>
 </shiro:hasRole>
 
+<shiro:hasRoles name="ROLE_USER">
+	ROLE_USER<br/>
+</shiro:hasRoles>
+<shiro:hasRoles name="ROLE_ADMIN">
+	ROLE_ADMIN<br/>
+</shiro:hasRoles>
+<shiro:hasPermission name="hellolabs:helltest">
+	hellolabs:helltest<br/>
+</shiro:hasPermission>
+<shiro:hasPermission name="helsslolabs:helltest">
+	helsslolabs:helltest<br/>
+</shiro:hasPermission>
+
 <form th:action="@{/demo}" method="post">
 	<input type="hidden" name="_method" value="delete"/>
 	<input type="text" name="name"/>

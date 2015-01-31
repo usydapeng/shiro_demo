@@ -5,3 +5,5 @@
 3. logback记录日志（日志文件按天存储、指定日志到指定目录）
 4. Shiro进行权限控制
 5. Druid进行数据库和URL监控
+6. 权限认证缓存
+7. cookie redis 共享

@@ -8,11 +8,14 @@ import com.dapeng.repository.UserAccountRepository;
 import com.dapeng.repository.UserInfoRepository;
 import com.dapeng.repository.UserPermissionRepository;
 import com.dapeng.service.exception.UserAccountException;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @Service("userService")
 @Transactional
@@ -37,7 +40,6 @@ public class UserServiceImpl implements UserService {
 			throw new UserAccountException("this account doesn't exist");
 		}
 		UserInfo userInfo = userInfoRepository.findOneByUserId(userAccount.getId());
-		UserPermission userPermission = userPermissionRepository.findOneByUserId(userAccount.getId());
 
 		SimpleUserInfo simpleUserInfo = new SimpleUserInfo();
 
@@ -48,7 +50,13 @@ public class UserServiceImpl implements UserService {
 		simpleUserInfo.setPassword(userAccount.getPassword());
 		simpleUserInfo.setUsername(userAccount.getUsername());
 		simpleUserInfo.setUserRole(userAccount.getUserRole());
-		simpleUserInfo.setUserPermission(userPermission == null ? null : userPermission.getPermission());
+
+		List<UserPermission> userPermissionList = userPermissionRepository.findAllByUserId(userAccount.getId());
+		List<String> permissionStrList = Lists.newArrayList();
+		for(UserPermission userPermission : userPermissionList){
+			permissionStrList.add(userPermission.getPermission());
+		}
+		simpleUserInfo.setUserPermissionList(permissionStrList);
 
 		return simpleUserInfo;
 	}
@@ -57,7 +65,7 @@ public class UserServiceImpl implements UserService {
 	public void init() {
 		UserAccount userAccount = new UserAccount();
 		userAccount.setUsername("admin");
-		userAccount.setPassword("admin123");
+		userAccount.setPassword(new Md5PasswordEncoder().encodePassword("admin123", "admin"));
 		userAccountRepository.save(userAccount);
 
 		userAccount.setSlug(slugInfoRepository.findOne(userAccount.getId()).getSlug());

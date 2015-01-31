@@ -1,6 +1,7 @@
 package com.dapeng.service;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class SimpleUserInfo implements Serializable {
 
@@ -20,7 +21,7 @@ public class SimpleUserInfo implements Serializable {
 
 	private int userRole;
 
-	private String userPermission;
+	private List<String> userPermissionList;
 
 	public Long getUserId() {
 		return userId;
@@ -70,19 +71,19 @@ public class SimpleUserInfo implements Serializable {
 		this.userRole = userRole;
 	}
 
-	public String getUserPermission() {
-		return userPermission;
-	}
-
-	public void setUserPermission(String userPermission) {
-		this.userPermission = userPermission;
-	}
-
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<String> getUserPermissionList() {
+		return userPermissionList;
+	}
+
+	public void setUserPermissionList(List<String> userPermissionList) {
+		this.userPermissionList = userPermissionList;
 	}
 }

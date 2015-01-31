@@ -1,12 +1,15 @@
 package com.dapeng.core.shiro.db;
 
 import com.dapeng.core.shiro.authc.EnhanceUser;
+import com.dapeng.core.shiro.encoding.CustomSaltCredentialsMatcher;
+import com.dapeng.domain.UserAccount;
 import com.dapeng.service.SimpleUserInfo;
 import com.dapeng.service.UserService;
 import com.dapeng.service.exception.UserAccountException;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
@@ -28,7 +31,27 @@ public class CustomSecurityRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		logger.info("authorization: 授权回调函数 " + principals.getRealmNames());
-		return null;
+
+		EnhanceUser enhanceUser = (EnhanceUser) principals.fromRealm(getName()).iterator().next();
+		SimpleAuthorizationInfo simpleAuthorizationInfo = null;
+
+		try {
+			SimpleUserInfo simpleUserInfo = userService.getByUsername(enhanceUser.getUsername());
+
+			simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+
+			for(UserAccount.Role role : UserAccount.Role.values()){
+				if(UserAccount.isInGroup(simpleUserInfo.getUserRole(), role.getId())){
+					simpleAuthorizationInfo.addRole(role.toString());
+				}
+			}
+
+			simpleAuthorizationInfo.addStringPermissions(simpleUserInfo.getUserPermissionList());
+		} catch (UserAccountException e) {
+			logger.info(e.getMessage(), e);
+		}
+
+		return simpleAuthorizationInfo;
 	}
 
 	/**
@@ -51,7 +74,7 @@ public class CustomSecurityRealm extends AuthorizingRealm {
 
 	@Override
 	public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
-//		credentialsMatcher = new HashedCredentialsMatcher(Md5Hash.ALGORITHM_NAME);
+		credentialsMatcher = new CustomSaltCredentialsMatcher();
 		super.setCredentialsMatcher(credentialsMatcher);
 	}
 }
