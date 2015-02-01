@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Controller;
 
 import java.util.Map;
 
@@ -68,6 +67,7 @@ public class SecurityConfig {
 		Map<String, String> filterChainDefinitionMap = Maps.newHashMap();
 		filterChainDefinitionMap.put("/product", "authc");
 		filterChainDefinitionMap.put("/admin", "authc, roles[USER_ADMIN]");
+		filterChainDefinitionMap.put("/logout", "logout");
 		shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
 		return shiroFilter;

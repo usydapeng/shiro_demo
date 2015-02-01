@@ -11,3 +11,4 @@
 9. thymeleaf生成静态模板
 10. [Redis实现shiro集群](http://jetgeng.github.io/blog/html/2014/09/07/redis_shiro.html)
 11. 单点登陆
+12. Hibernate缓存，shiro授权缓存，ecache

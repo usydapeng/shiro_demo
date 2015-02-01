@@ -16,18 +16,36 @@
 	<a href="admin.html">Administer the system</a>
 </shiro:hasRole>
 
-<shiro:hasRoles name="ROLE_USER">
+<shiro:hasRole name="ROLE_USER">
 	ROLE_USER<br/>
-</shiro:hasRoles>
-<shiro:hasRoles name="ROLE_ADMIN">
+</shiro:hasRole>
+<div shiro:hasRole="ROLE_USER">
+	<a href="admin.html">Administer the system</a>
+</div>
+<shiro:hasRole name="ROLE_ADMIN">
 	ROLE_ADMIN<br/>
-</shiro:hasRoles>
+</shiro:hasRole>
 <shiro:hasPermission name="hellolabs:helltest">
 	hellolabs:helltest<br/>
 </shiro:hasPermission>
 <shiro:hasPermission name="helsslolabs:helltest">
 	helsslolabs:helltest<br/>
 </shiro:hasPermission>
+
+
+<shiro:hasRole name="ROLE_EDITOR">
+	ROLE_EDITOR<br/>
+</shiro:hasRole>
+<div shiro:hasRole="ROLE_EDITOR">
+	ROLE_EDITOR<br/>
+</div>
+
+<shiro:hasAnyRoles name="ROLE_EDITOR,ROLE_USER">
+	ROLE_EDITOR,ROLE_USER<br/>
+</shiro:hasAnyRoles>
+<div shiro:hasAnyRoles="ROLE_EDITOR,ROLE_USER">
+	ROLE_EDITOR,ROLE_USER<br/>
+</div>
 
 <form th:action="@{/demo}" method="post">
 	<input type="hidden" name="_method" value="delete"/>

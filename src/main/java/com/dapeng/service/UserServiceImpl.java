@@ -66,6 +66,7 @@ public class UserServiceImpl implements UserService {
 		UserAccount userAccount = new UserAccount();
 		userAccount.setUsername("admin");
 		userAccount.setPassword(new Md5PasswordEncoder().encodePassword("admin123", "admin"));
+		userAccount.setUserRole(UserAccount.Role.ROLE_USER.getId() + UserAccount.Role.ROLE_EDITOR.getId());
 		userAccountRepository.save(userAccount);
 
 		userAccount.setSlug(slugInfoRepository.findOne(userAccount.getId()).getSlug());
