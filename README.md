@@ -11,5 +11,4 @@
 9. thymeleaf生成静态模板
 10. [Redis实现shiro集群](http://jetgeng.github.io/blog/html/2014/09/07/redis_shiro.html)
 11. 单点登陆
-12. Hibernate缓存，shiro授权缓存，[shiro cache](http://www.9iu.org/2013/12/15/springrain4-shiro-cache.html)
-    [jpa cache](http://www.ibm.com/developerworks/cn/websphere/library/techarticles/1106_zhangt_openjpa/1106_zhangt_openjpa.html)
+12. Hibernate缓存，shiro授权缓存，[shiro cache](http://www.9iu.org/2013/12/15/springrain4-shiro-cache.html) | [jpa cache](http://www.ibm.com/developerworks/cn/websphere/library/techarticles/1106_zhangt_openjpa/1106_zhangt_openjpa.html)
