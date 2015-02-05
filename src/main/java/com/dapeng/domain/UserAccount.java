@@ -1,17 +1,12 @@
 package com.dapeng.domain;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "user_account", uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
-public class UserAccount implements Serializable {
+public class UserAccount extends BaseEntity {
 
-	private static final long serialVersionUID = -2699025543791437963L;
-
-	@Id
-	@GeneratedValue
-	private Long id;
+	private static final long serialVersionUID = -6682307067052631200L;
 
 	private Long slug;
 
@@ -25,14 +20,6 @@ public class UserAccount implements Serializable {
 	private boolean enabled = false;
 
 	private boolean confirmed = false;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getUsername() {
 		return username;

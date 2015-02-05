@@ -68,10 +68,17 @@ public class DataConfig {
 		entityManagerFactory.setPackagesToScan("com.dapeng.domain");
 		entityManagerFactory.setPersistenceProvider(persistenceProvider());
 
-//		Properties jpaProperties = new Properties();
-//		jpaProperties.put("hibernate.show_sql", true);
+		Properties jpaProperties = new Properties();
+//		jpaProperties.put("hibernate.show_sql", true);//已经在 hibernateJpaVendorAdapter() 做过配置
 //		jpaProperties.put("hibernate.dbm2ddl.auto", "update");
-//		entityManagerFactory.setJpaProperties(jpaProperties);
+		//配置hibernate二级缓存
+		jpaProperties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
+		jpaProperties.put("hibernate.cache.use_second_level_cache", "true");
+		jpaProperties.put("hibernate.cache.use_query_cache", "true");
+		jpaProperties.put("hibernate.format_sql", "false");
+		jpaProperties.put("hibernate.use_sql_comments", "true");
+		entityManagerFactory.setJpaProperties(jpaProperties);
+
 		entityManagerFactory.afterPropertiesSet();
 		return entityManagerFactory.getObject();
 	}

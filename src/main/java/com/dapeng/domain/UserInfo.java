@@ -1,20 +1,13 @@
 package com.dapeng.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 @Table(name = "user_info")
 @Entity
-public class UserInfo implements Serializable {
+public class UserInfo extends BaseEntity {
 
-	private static final long serialVersionUID = -1995613001970300707L;
-
-	@Id
-	@GeneratedValue
-	private Long id;
+	private static final long serialVersionUID = 2537245848408684926L;
 
 	private Long userId;
 
@@ -23,14 +16,6 @@ public class UserInfo implements Serializable {
 	private int gender = 0;
 
 	private String school;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Long getUserId() {
 		return userId;
