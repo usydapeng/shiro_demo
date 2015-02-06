@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
 
 		UserPermission userPermission = new UserPermission();
 		userPermission.setUserId(userAccount.getId());
-		userPermission.setCreateTime(new Date());
+		userPermission.setLastModifyTime(new Date());
 		userPermission.setPermission("hellolabs:helltest");
 		userPermissionRepository.save(userPermission);
 	}

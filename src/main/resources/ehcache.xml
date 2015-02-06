@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+
+	<diskStore path="C:\Users\usyda_000\Desktop\cache\hello"/>
+
+	<cache name="org.hibernate.cache.StandardQueryCache"
+	       maxEntriesLocalHeap="1"
+	       eternal="false"
+	       timeToIdleSeconds="300"
+	       timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap"/>
+	</cache>
+
+	<cache name="org.hibernate.cache.UpdateTimestampsCache"
+	       maxEntriesLocalHeap="1"
+	       eternal="false"
+	       timeToIdleSeconds="300"
+	       timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap"/>
+	</cache>
+
+	<defaultCache
+			maxElementsInMemory="1"
+			eternal="false"
+			timeToIdleSeconds="120"
+			timeToLiveSeconds="120"
+			maxElementsOnDisk="10000000"
+			diskExpiryThreadIntervalSeconds="120"
+			memoryStoreEvictionPolicy="LRU">
+		<persistence strategy="localTempSwap"/>
+	</defaultCache>
+
+</ehcache>

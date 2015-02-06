@@ -2,10 +2,11 @@ package com.dapeng.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Table(name = "user_permission")
-public class UserPermission extends BaseEntity {
+public class UserPermission extends AbstractEntity {
 
 	private static final long serialVersionUID = -8242001086734050872L;
 
@@ -14,6 +15,8 @@ public class UserPermission extends BaseEntity {
 	private String permission;
 
 	private boolean enabled;
+
+	private Date lastModifyTime;
 
 	public Long getUserId() {
 		return userId;
@@ -37,5 +40,13 @@ public class UserPermission extends BaseEntity {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public Date getLastModifyTime() {
+		return lastModifyTime;
+	}
+
+	public void setLastModifyTime(Date lastModifyTime) {
+		this.lastModifyTime = lastModifyTime;
 	}
 }
