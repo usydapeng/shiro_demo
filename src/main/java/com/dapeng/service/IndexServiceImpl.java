@@ -4,6 +4,7 @@ import com.dapeng.domain.ProductInfo;
 import com.dapeng.repository.ProductInfoRepository;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class IndexServiceImpl implements IndexService {
 	}
 
 	@Override
+	@Cacheable("productInfo")
 	public List<SimpleProductInfo> show() {
 		List<ProductInfo> productList = productInfoRepository.findAll();
 

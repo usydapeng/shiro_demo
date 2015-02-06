@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 	private SlugInfoRepository slugInfoRepository;
 
 	@Override
-	public SimpleUserInfo getByUsername(String username) throws UserAccountException {
+	public SimpleUserInfo getAuthorizationByUsername(String username) throws UserAccountException {
 		UserAccount userAccount = userAccountRepository.findOneByUsername(username);
 		if(userAccount == null){
 			throw new UserAccountException("this account doesn't exist");

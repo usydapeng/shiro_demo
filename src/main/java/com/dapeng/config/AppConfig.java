@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 @ComponentScan(basePackages = "com.dapeng", excludeFilters = {@ComponentScan.Filter(Configuration.class),
 		@ComponentScan.Filter(Controller.class),
 		@ComponentScan.Filter(ControllerAdvice.class)})
-@Import({DataConfig.class})
+@Import({DataConfig.class, CachingConfiguration.class})
 @PropertySources({@PropertySource("classpath:properties/dapeng-local.properties")})
 public class AppConfig {
 

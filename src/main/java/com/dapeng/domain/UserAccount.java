@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user_account", uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
-public class UserAccount extends BaseEntity {
+public class UserAccount extends AbstractEntity {
 
 	private static final long serialVersionUID = -6682307067052631200L;
 

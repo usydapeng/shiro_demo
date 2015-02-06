@@ -5,7 +5,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_permission")
-public class UserPermission extends BaseEntity {
+public class UserPermission extends AbstractEntity {
 
 	private static final long serialVersionUID = -8242001086734050872L;
 

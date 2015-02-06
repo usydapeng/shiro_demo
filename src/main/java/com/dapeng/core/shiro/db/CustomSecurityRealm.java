@@ -36,7 +36,7 @@ public class CustomSecurityRealm extends AuthorizingRealm {
 		SimpleAuthorizationInfo simpleAuthorizationInfo = null;
 
 		try {
-			SimpleUserInfo simpleUserInfo = userService.getByUsername(enhanceUser.getUsername());
+			SimpleUserInfo simpleUserInfo = userService.getAuthorizationByUsername(enhanceUser.getUsername());
 
 			simpleAuthorizationInfo = new SimpleAuthorizationInfo();
 
@@ -64,7 +64,7 @@ public class CustomSecurityRealm extends AuthorizingRealm {
 		UsernamePasswordToken upat = (UsernamePasswordToken) token;
 
 		try {
-			SimpleUserInfo simpleUserInfo = userService.getByUsername(upat.getUsername());
+			SimpleUserInfo simpleUserInfo = userService.getAuthorizationByUsername(upat.getUsername());
 			return new SimpleAuthenticationInfo(new EnhanceUser(simpleUserInfo.getUserId(), simpleUserInfo.getSlug(), simpleUserInfo.getUsername()),
 							simpleUserInfo.getPassword(), getName());
 		} catch(UserAccountException e){

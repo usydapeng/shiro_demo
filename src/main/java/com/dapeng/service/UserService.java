@@ -4,7 +4,7 @@ import com.dapeng.service.exception.UserAccountException;
 
 public interface UserService {
 
-	SimpleUserInfo getByUsername(String username) throws UserAccountException;
+	SimpleUserInfo getAuthorizationByUsername(String username) throws UserAccountException;
 
 	void init();
 }

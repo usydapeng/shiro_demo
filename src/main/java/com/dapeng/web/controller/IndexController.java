@@ -70,7 +70,7 @@ public class IndexController {
 	public Map<String, Object> getUserInfo(@RequestParam(value = "n", defaultValue = "admin") String username){
 		Map<String, Object> map = Maps.newHashMap();
 		try {
-			map.put("message", userService.getByUsername(username));
+			map.put("message", userService.getAuthorizationByUsername(username));
 			map.put("success", true);
 		} catch(UserAccountException e){
 			logger.info(e.getMessage(), e);
