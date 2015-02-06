@@ -1,7 +1,7 @@
 package com.dapeng.service;
 
+import com.dapeng.dao.ProductInfoDAO;
 import com.dapeng.domain.ProductInfo;
-import com.dapeng.repository.ProductInfoRepository;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,19 +14,19 @@ import java.util.List;
 public class IndexServiceImpl implements IndexService {
 
 	@Autowired
-	private ProductInfoRepository productInfoRepository;
+	private ProductInfoDAO productInfoDAO;
 
 
 	@Override
 	public void save(String name) {
 		ProductInfo productInfo = new ProductInfo();
 		productInfo.setName(name);
-		productInfoRepository.save(productInfo);
+		productInfoDAO.save(productInfo);
 	}
 
 	@Override
 	public List<SimpleProductInfo> show() {
-		List<ProductInfo> productList = productInfoRepository.findAll();
+		List<ProductInfo> productList = productInfoDAO.findAll();
 
 		List<SimpleProductInfo> simpleProductInfoList = Lists.newArrayList();
 		for(ProductInfo productInfo : productList){
