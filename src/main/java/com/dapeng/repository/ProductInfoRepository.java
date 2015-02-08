@@ -10,10 +10,10 @@ import java.util.List;
 public interface ProductInfoRepository extends JpaRepository<ProductInfo, Long> {
 
 	@Override
-	@CacheEvict(value = "product")
+	@CacheEvict("product")
 	<S extends ProductInfo> S save(S entity);
 
 	@Override
-	@Cacheable(value = "product")
+	@Cacheable("product")
 	List<ProductInfo> findAll();
 }
