@@ -76,7 +76,7 @@ public class DataConfig {
 		jpaProperties.put("hibernate.cache.use_second_level_cache", "true");
 		jpaProperties.put("hibernate.cache.use_query_cache", "true");
 		jpaProperties.put("hibernate.format_sql", "false");
-		jpaProperties.put("hibernate.use_sql_comments", "true");
+		jpaProperties.put("hibernate.use_sql_comments", "false");
 		entityManagerFactory.setJpaProperties(jpaProperties);
 
 		entityManagerFactory.afterPropertiesSet();

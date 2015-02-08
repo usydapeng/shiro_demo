@@ -1,10 +1,13 @@
 package com.dapeng.service;
 
+import com.dapeng.domain.ProductInfo;
+
 import java.util.List;
 
 public interface IndexService {
 
-	void save(String name);
+	ProductInfo save(String name);
 
 	List<SimpleProductInfo> show();
+
 }
