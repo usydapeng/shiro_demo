@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "slug_info", uniqueConstraints = {@UniqueConstraint(columnNames = "slug")})
+@Table(name = "slug_info")
 public class SlugInfo implements Serializable {
 
 	private static final long serialVersionUID = 74586927583429629L;
@@ -13,6 +13,7 @@ public class SlugInfo implements Serializable {
 	@GeneratedValue
 	private Long id;
 
+	@Column(unique = true)
 	private Long slug;
 
 	public Long getId() {

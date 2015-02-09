@@ -1,15 +1,19 @@
 package com.dapeng.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
-@Table(name = "user_account", uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
+@Table(name = "user_account")
 public class UserAccount extends AbstractEntity {
 
 	private static final long serialVersionUID = -6682307067052631200L;
 
 	private Long slug;
 
+	@Column(unique = true)
 	private String username;
 
 	@Column(name = "passwd")
