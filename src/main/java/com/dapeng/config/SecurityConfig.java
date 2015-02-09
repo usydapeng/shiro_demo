@@ -12,12 +12,14 @@ import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.core.annotation.Order;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.Map;
 
 @Configuration
-@Order(10)
+@EnableTransactionManagement
+@EnableAspectJAutoProxy
 public class SecurityConfig {
 
 	@Bean
