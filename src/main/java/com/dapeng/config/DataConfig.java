@@ -4,12 +4,9 @@ import com.alibaba.druid.pool.DruidDataSource;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
-import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -25,22 +22,30 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories("com.dapeng.repository")
-@PropertySources({@PropertySource("classpath:properties/dapeng-local.properties")})
 public class DataConfig {
 
 	private static final Logger logger = LoggerFactory.getLogger(DataConfig.class);
 
-	@Autowired
-	private Environment env;
+	@Value("${jdbc.url}")
+	private String jdbcUrl;
+
+	@Value("${jdbc.driverClassName}")
+	private String jdbcDriverClassName;
+
+	@Value("${jdbc.username}")
+	private String jdbcUsername;
+
+	@Value("${jdbc.password}")
+	private String jdbcPassword;
 
 	@Bean(initMethod = "init", destroyMethod = "close")
 	public DruidDataSource druidDataSource(){
 		DruidDataSource druidDataSource = new DruidDataSource();
 
-		druidDataSource.setUrl(env.getProperty("jdbc.url"));
-		druidDataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-		druidDataSource.setUsername(env.getProperty("jdbc.username"));
-		druidDataSource.setPassword(env.getProperty("jdbc.password"));
+		druidDataSource.setUrl(jdbcUrl);
+		druidDataSource.setDriverClassName(jdbcDriverClassName);
+		druidDataSource.setUsername(jdbcUsername);
+		druidDataSource.setPassword(jdbcPassword);
 
 		try {
 			druidDataSource.setFilters("config");
