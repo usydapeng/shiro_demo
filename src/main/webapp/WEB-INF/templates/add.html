@@ -6,8 +6,13 @@
 </head>
 <body>
 <h1 th:text="${footer}"></h1>
-<form >
 
+<form th:action="@{/p_save_update}" method="post">
+	<input type="hidden" th:value="${product.id}" name="id" th:if="${updateFlag}"/>
+	<input type="input" name="name" th:value="${product.name}"/>
+	<input type="submit" value="保存" th:unless="${updateFlag}"/>
+	<input type="submit" value="更新" th:if="${updateFlag}"/>
 </form>
+
 </body>
 </html>

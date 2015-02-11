@@ -27,6 +27,7 @@ public class RedisCachingConfiguration {
 	public RedisTemplate<Object, Object> redisTemplate(){
 		RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(jedisConnectionFactory());
+		redisTemplate.setEnableTransactionSupport(true);
 		return redisTemplate;
 	}
 

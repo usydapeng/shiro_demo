@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 		@ComponentScan.Filter(Controller.class),
 		@ComponentScan.Filter(ControllerAdvice.class)})
 @Import({DataConfig.class, RedisCachingConfiguration.class})
-@PropertySources({@PropertySource("classpath:properties/dapeng-local-mac.properties")})
+@PropertySources({@PropertySource("classpath:properties/dapeng-local.properties")})
 public class AppConfig {
 
 	@Bean

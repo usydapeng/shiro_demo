@@ -6,6 +6,8 @@
 </head>
 <body>
 <h1 th:text="${footer}"></h1>
-<p th:each="product : ${list}" th:text="@{${product.id} + ${product.name}}"></p>
+<p th:each="product : ${list}">
+	<a th:href="@{/p_save_update(id=${product.id})}" th:text="@{${product.id} + ${product.name}}"></a>
+</p>
 </body>
 </html>

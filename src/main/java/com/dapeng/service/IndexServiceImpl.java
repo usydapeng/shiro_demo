@@ -2,6 +2,7 @@ package com.dapeng.service;
 
 import com.dapeng.domain.ProductInfo;
 import com.dapeng.repository.ProductInfoRepository;
+import com.dapeng.web.controller.ProductInfoFormBean;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
@@ -32,13 +33,31 @@ public class IndexServiceImpl implements IndexService {
 
 		List<SimpleProductInfo> simpleProductInfoList = Lists.newArrayList();
 		for(ProductInfo productInfo : productList){
-			SimpleProductInfo simpleProductInfo = new SimpleProductInfo();
-			simpleProductInfo.setId(productInfo.getId());
-			simpleProductInfo.setName(productInfo.getName());
-			simpleProductInfoList.add(simpleProductInfo);
+			simpleProductInfoList.add(retrieveSimpleProductInfo(productInfo));
 		}
 
 		return simpleProductInfoList;
+	}
+
+	private SimpleProductInfo retrieveSimpleProductInfo(ProductInfo productInfo) {
+		SimpleProductInfo simpleProductInfo = new SimpleProductInfo();
+		simpleProductInfo.setId(productInfo.getId());
+		simpleProductInfo.setName(productInfo.getName());
+		return simpleProductInfo;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public SimpleProductInfo getProductById(Long productId) {
+		return retrieveSimpleProductInfo(productInfoRepository.getOne(productId));
+	}
+
+	@Override
+	public void saveOrUpdateToProduct(ProductInfoFormBean product) {
+		ProductInfo productInfo = new ProductInfo();
+		productInfo.setId(product.getId());
+		productInfo.setName(product.getName());
+		productInfoRepository.save(productInfo);
 	}
 
 }

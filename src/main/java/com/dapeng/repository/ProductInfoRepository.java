@@ -18,4 +18,8 @@ public interface ProductInfoRepository extends JpaRepository<ProductInfo, Long> 
 	@Override
 	@Cacheable
 	List<ProductInfo> findAll();
+
+	@Override
+	@Cacheable
+	ProductInfo getOne(Long id);
 }

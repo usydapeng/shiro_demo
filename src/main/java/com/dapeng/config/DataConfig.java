@@ -77,6 +77,7 @@ public class DataConfig {
 //		jpaProperties.put("hibernate.show_sql", true);//已经在 hibernateJpaVendorAdapter() 做过配置
 //		jpaProperties.put("hibernate.dbm2ddl.auto", "update");
 		//配置hibernate二级缓存
+		jpaProperties.put("current_session_context_class", "thread");
 		jpaProperties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
 		jpaProperties.put("hibernate.cache.use_second_level_cache", "true");
 		jpaProperties.put("hibernate.cache.use_query_cache", "true");
